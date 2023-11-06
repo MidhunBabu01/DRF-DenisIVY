@@ -12,11 +12,13 @@ def task_list(request):
     return Response(serializer.data)
 
 
+
 @api_view(['GET'])
 def task_details(request,task_id):
     task_details = Task.objects.get(id=task_id)
     serializer = TaskSerializer(task_details,many=False)
     return Response(serializer.data)
+
 
 
 @api_view(['POST'])
@@ -33,8 +35,11 @@ def task_update(request,update_id):
     update = Task.objects.get(id= update_id)
     serializer = TaskSerializer(instance=update,data = request.data)
     if serializer.is_valid():
+        
         serializer.save()
     return Response(serializer.data)
+
+
 
 @api_view(['DELETE'])
 def task_delete(request,delete_id):
